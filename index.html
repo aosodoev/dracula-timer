@@ -1,0 +1,37 @@
+<h1>Silly productivity timer</h1>
+
+<p>Turn your old (or new) noisy toy into a funny productivity tool!</p>
+
+<p><img src="extra/dracula-timer-picture.jpg" alt="Dracula" title="" /></p>
+
+<p>I had this laughing Dracula toy with glowing eyes since early 90s. For a while I had an idea to turn it into a timer.</p>
+
+<p><a href="https://www.youtube.com/watch?v=cSJk0hpyW_U">Dracula timer in action</a></p>
+
+<p>Simply cut button wire/trace and solder ATtiny13, it would receive button press and trigger toy.</p>
+
+<p>Some toys triggered by LOW level, some by HIGH (A and B), check your wiring and comment/uncomment defines accordingly. The same applies to LEDs</p>
+
+<p><img src="extra/dracula-timer-schematics.jpg" alt="Schematics" title="" /></p>
+
+<p>My Dracula toy was active LOW (button connected trace from the blob to negative battery lead). Eyes were connected to positive battery lead and blob would pull LOW to light them up. </p>
+
+<p><img src="extra/dracula-guts.jpg" alt="Guts" title="" /></p>
+
+<p>Another toy was active HIGH (button was connected to positive side of the battery).</p>
+
+<p><img src="extra/other.jpg" alt="Other guts" title="" /></p>
+
+<h2>Calibration</h2>
+
+<p>Internal oscillator is not precise, depends on voltage and temperature and needs calibration. In my cases when countdown was set to 25x60 seconds it actually was 28 and 32 minutes.</p>
+
+<p>"calibration" has nothing to do with actual oscillator calibration and simply means counting ticks for 5 minutes and multiplying result by 5.</p>
+
+<p>Default ticks count is saved/read from EEPROM. When uploading image for the first time you'll need to write EEPROM as well, in case of platformio with this command:</p>
+
+<p><code>
+$ pio run --target uploadeep
+</code></p>
+
+<p>To calibrate counter, setup your phone or kitchen timer to 5 minutes, start both timers, but don't release toy timer button for another 5-6 seconds until it blinks for the second time. When your phone timer is up, press toy timer button, it will multiply number of ticks by 5 and save this number to EEPROM. That's it!</p>
